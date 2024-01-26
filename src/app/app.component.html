@@ -1,0 +1,66 @@
+<div class="nav">
+  <button
+    [class.active]="matgroup.selectedIndex === i"
+    *ngFor="let month of months; let i = index"
+    (click)="matgroup.selectedIndex = i"
+  >
+    {{ month.name }}
+  </button>
+</div>
+<mat-tab-group #matgroup>
+  <mat-tab [label]="month.name" *ngFor="let month of months">
+    <h1>{{ month.name }} - {{ month.desc }}</h1>
+    <div class="calendar">
+      <div
+        class="calendar-block"
+        [class.calendar-special-day]="checkSpecialDay(month, i + 1)"
+        *ngFor="let day of [].constructor(month.length); let i = index"
+      >
+        <img
+          class="calendar-block-image"
+          *ngIf="i + 1 < 10"
+          [src]="'/assets/moon-phases-0' + (i + 1) + '.svg'"
+        />
+        <img
+          class="calendar-block-image"
+          *ngIf="i + 1 >= 10 && i + 1 <= 15"
+          [src]="'/assets/moon-phases-' + (i + 1) + '.svg'"
+        />
+        <img
+          class="calendar-block-image"
+          *ngIf="i + 1 === 16 || i + 1 === 17"
+          [src]="'/assets/moon-phases-15.svg'"
+        />
+        <img
+          class="calendar-block-image reverse"
+          *ngIf="i + 1 > 17 && i + 1 <= 22"
+          [src]="'/assets/moon-phases-' + (30 - (i + 1 - 2)) + '.svg'"
+        />
+        <img
+          class="calendar-block-image reverse"
+          *ngIf="i + 1 > 22 && i + 1 <= 31"
+          [src]="'/assets/moon-phases-0' + (30 - (i + 1 - 2)) + '.svg'"
+        />
+
+        <img
+          class="calendar-block-image reverse"
+          *ngIf="i + 1 === 32"
+          [src]="'/assets/moon-phases-01.svg'"
+        />
+        <ng-container *ngIf="i + 1 <= 30">
+          {{ i + 1 }}
+        </ng-container>
+        <ng-container *ngFor="let day of month.days">
+          <ng-container *ngIf="day.day === i + 1">
+            <ng-container *ngIf="i + 1 <= 30"> - </ng-container>
+            <strong>{{ day.name }}</strong>
+            <p>{{ day.desc }}</p>
+            <a class="calendar-source" target="_blank" [href]="day.source">{{
+              day.source
+            }}</a>
+          </ng-container>
+        </ng-container>
+      </div>
+    </div>
+  </mat-tab>
+</mat-tab-group>

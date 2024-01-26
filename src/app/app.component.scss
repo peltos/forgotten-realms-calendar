@@ -1,0 +1,96 @@
+h1 {
+  text-align: center;
+}
+
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  row-gap: 12px;
+  column-gap: 12px;
+  padding: 12px 0;
+}
+
+button {
+  background: #9b0000;
+  color: white;
+  border-radius: 4px;
+  border: none;
+  padding: 6px 12px;
+  cursor: pointer;
+
+  &.active {
+    background: #ff8a80;
+    color: black;
+  }
+}
+
+.calendar {
+  display: grid;
+  grid-template-columns: 1fr;
+  border-top: 1px solid rgb(255, 247, 235);
+
+  @media only screen and (min-width: 600px) {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+
+  @media only screen and (min-width: 900px) {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  }
+}
+
+.calendar-block {
+  border-bottom: 1px solid rgb(255, 247, 235);
+  border-right: 1px solid rgb(255, 247, 235);
+  height: calc(8.33333vh - 10px);
+  position: relative;
+  border-radius: 16px;
+  padding: 8px;
+  overflow: hidden;
+
+  @media only screen and (min-width: 900px) {
+    height: calc(16.66667vh - 30px);
+  }
+
+  &.calendar-special-day,
+  &:hover {
+    background: rgba(255, 247, 235, 0.875);
+  }
+}
+
+.calendar-block-image {
+  width: 48px;
+  height: 48px;
+  position: absolute;
+  top: calc(50% - 24px);
+  left: calc(50% - 24px);
+  opacity: 0.5;
+  z-index: -1;
+
+  @media only screen and (min-width: 900px) {
+    width: 64px;
+    height: 64px;
+    top: calc(50% - 32px);
+    left: calc(50% - 32px);
+  }
+
+  &.reverse {
+    transform: rotate(180deg);
+  }
+}
+
+.calendar-source {
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+  color: #9b0000;
+
+  &:hover,
+  &:active {
+    color: #ff8a80;
+  }
+}
+
+::ng-deep mat-tab-header {
+  display: none !important;
+}
